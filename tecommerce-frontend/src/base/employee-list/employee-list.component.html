@@ -1,0 +1,65 @@
+<h1>Lista de Funcionários</h1>
+<div class="flex flex-column gap-1">
+  <div class="flex gap-3">
+    <mat-form-field> <!-- Formulario -->
+      <mat-label>Pesquisar Nome</mat-label>
+      <input matInput [(ngModel)]="searchName">
+    </mat-form-field>
+    <mat-form-field> <!-- Formulario -->
+      <mat-label>Pesquisar registro</mat-label>
+      <input matInput [(ngModel)]="searchRegistraction">
+    </mat-form-field>
+
+    <button mat-fab (click)="search()" class="btn-default">
+      <mat-icon>search</mat-icon>
+    </button>
+
+    <button mat-fab (click)="goToPage('employee/create')" class="btn-default">
+      <mat-icon>add</mat-icon>
+    </button>
+
+  </div>
+
+
+  <mat-card>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Cod.</th>
+        <td mat-cell *matCellDef="let element"> {{ element.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nome</th>
+        <td mat-cell *matCellDef="let element"> {{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="registraction">
+        <th mat-header-cell *matHeaderCellDef> Registro</th>
+        <td mat-cell *matCellDef="let element"> {{ element.registraction }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button aria-label="edit" (click)="goToPage('employee/' +element.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="delete" (click)="deleteObject(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </mat-card>
+
+  @if (dataSource.length === 0) {
+    <div class="flex flex-center">
+      <h2>Nenhum funcionário encontrado</h2>
+    </div>
+  }
+</div>

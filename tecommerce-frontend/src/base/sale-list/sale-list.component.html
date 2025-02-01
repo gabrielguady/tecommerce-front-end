@@ -1,0 +1,57 @@
+<h1>Lista de Vendas</h1>
+<div class="flex flex-column">
+  <div>
+    <mat-form-field>
+      <mat-label> Pesquisar id do produto</mat-label>
+      <input matInput [(ngModel)]="searchProduct">
+      <button matSuffix mat-icon-button aria-label="search" (click)="search()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Pesquisar nota fiscal</mat-label>
+      <input matInput [(ngModel)]="searchNrf">
+      <button matSuffix mat-icon-button aria-label="search" (click)="search()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-fab (click)="search()" class="btn-default">
+      <mat-icon>search</mat-icon>
+    </button>
+    <button mat-fab (click)="goToPage('sale/create')" class="btn-default">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+
+  <mat-card>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Cod.</th>
+        <td mat-cell *matCellDef="let element"> {{ element.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="id_product">
+        <th mat-header-cell *matHeaderCellDef> Produto</th>
+        <td mat-cell *matCellDef="let element"> {{ element.id_product }}</td>
+      </ng-container>
+      <ng-container matColumnDef="nrf">
+        <th mat-header-cell *matHeaderCellDef> Nota Fiscal</th>
+        <td mat-cell *matCellDef="let element"> {{ element.nrf }}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Ações</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button aria-label="edit" (click)="goToPage('sale/' +element.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="delete" (click)="deleteObject(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+</div>
