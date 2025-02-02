@@ -1,1 +1,1 @@
-# tecommerce-front-end
+# Stock-System-Management
